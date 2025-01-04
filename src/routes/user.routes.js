@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { loginUser, logoutUser, refreshAccessToken, registerUser } from '../controllers/user.controller.js'
+import { changeCurrentPassword, getCurrentUser, getUserChannelProfile, getWatchHistory, loginUser, logoutUser, refreshAccessToken, registerUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage } from '../controllers/user.controller.js'
 import {upload} from "../middlewares/multer.middleware.js"
 import { verifyJWT } from '../middlewares/auth.middleware.js'
 
@@ -21,6 +21,20 @@ router.route("/register").post(
 router.route("/login").post(loginUser)
 
 //secure routes, means user should be logged in
+//use verifyJWT whenever only the logged in user can perform a task by going to a specific route 
 router.route("/logout").post(verifyJWT,logoutUser)
-roouter.route("/refreshToken").post(refreshAccessToken)
+router.route("/refreshToken").post(refreshAccessToken)
+
+router.route("/change-password").post(verifyJWT,changeCurrentPassword)
+router.route("/current-user").get(verifyJWT,getCurrentUser) //get is used as user wont be sending any data
+router
+.route("/update-account")
+.patch(verifyJWT,updateAccountDetails) //for patch check the crash course of http
+
+router.route("/avatar").patch(verifyJWT,upload.single("avatar"),updateUserAvatar)//doubt
+router.route("/cover-image").patch(verifyJWT,upload.single("/coverImage"),updateUserCoverImage) //iske single mai / q daala, doubt
+
+router.route("/c/:username").get(verifyJWT,getUserChannelProfile)
+router.route("history").get(verifyJWT,getWatchHistory)
+
 export default router
