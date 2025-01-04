@@ -32,9 +32,9 @@ router
 .patch(verifyJWT,updateAccountDetails) //for patch check the crash course of http
 
 router.route("/avatar").patch(verifyJWT,upload.single("avatar"),updateUserAvatar)//doubt
-router.route("/cover-image").patch(verifyJWT,upload.single("/coverImage"),updateUserCoverImage) //iske single mai / q daala, doubt
+router.route("/cover-image").patch(verifyJWT,upload.single("coverImage"),updateUserCoverImage) //iske single mai / q daala, doubt,solved
 
 router.route("/c/:username").get(verifyJWT,getUserChannelProfile)
-router.route("history").get(verifyJWT,getWatchHistory)
+router.route("/history").get(verifyJWT,getWatchHistory)
 
 export default router

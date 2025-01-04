@@ -6,7 +6,7 @@ import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/user.model.js" //User can directly talk to the db, as it is created using mongoose
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { jwt } from "jsonwebtoken";
+import  jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
 const generateAccessAndRefreshTokens=async(userId)=>{
@@ -89,7 +89,7 @@ const registerUser=asyncHandler(async(req,res)=>{
         coverImage:coverImage?.url || "",
         email,
         password,
-        username:username.toLowerCase
+        username:username.toLowerCase()
     })
 
     const createdUser=await User.findById(user._id).select(
@@ -163,8 +163,13 @@ const logoutUser=asyncHandler(async(req,res)=>{
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $set:{
-                refreshToken:undefined  
+            // $set:{
+            //     refreshToken:undefined  
+            // } 
+            // Check why did we changed this, doubt
+
+            $unset:{
+                refreshToken:1 // this removes the field from document
             }
         },
         {
@@ -375,6 +380,7 @@ const getUserChannelProfile=asyncHandler(async(req,res)=>{
     if(!username?.trim()){
         throw new ApiError(400,"username is missing")
     }
+    console.log(username)
 
     const channel=await User.aggregate([
         {
