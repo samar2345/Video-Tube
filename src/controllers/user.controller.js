@@ -1,7 +1,7 @@
 //not understood code
 
 
-import { asyncHandler } from "../utils/aysncHandler.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/user.model.js" //User can directly talk to the db, as it is created using mongoose
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
@@ -275,7 +275,7 @@ const getCurrentUser=asyncHandler((async(req,res)=>{
             "Current user fetched successfully"
         )
     )
-}))
+})) 
 
 const updateAccountDetails=asyncHandler(async(req,res)=>{
     const {fullName, email}=req.body
