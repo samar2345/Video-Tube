@@ -131,7 +131,7 @@ const updateTweet = asyncHandler(async (req, res) => {
     }
 
     if (!tweetId) {
-        throw new ApiError(404, "Tweet not found or you are not authorized to update it.");
+        throw new ApiError(404, "Tweet not found or you are not authorized to update it."); // doubt : Why arent we checking userId, & directly tell "not authorized to update"
     }
     console.log(tweetId)
     const updatedTweet=await Tweet.findOneAndUpdate(

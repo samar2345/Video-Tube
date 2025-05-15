@@ -1,4 +1,5 @@
 //Not understood
+// asynchandler not understood(eg. is used to connectDb in all controllers without writing the connectDb code we wrote in app.js again & again in all controller files)
 const asyncHandler=(requestHandler)=>{
     return (req,res,next)=>{
         Promise.resolve(requestHandler(req,res,next )).catch((error)=>next(error))

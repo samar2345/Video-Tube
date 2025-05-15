@@ -16,7 +16,7 @@ const generateAccessAndRefreshTokens=async(userId)=>{
         const refreshToken=user.generateRefreshToken()
 
         user.refreshToken=refreshToken
-        await user.save({validateBeforeSave:false}) //save refresh token to database
+        await user.save({validateBeforeSave:false}) //save refresh token to database, validataeBeforeSave:false is used to skip something, eg. the password field(as it is requird compusloriy when we create/update an user document), as we are not updating password here
 
         return {accessToken,refreshToken}
     } catch (error) {

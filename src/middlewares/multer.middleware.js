@@ -2,7 +2,7 @@ import multer from 'multer'
 
 //template of code copied from github of multer 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
+    destination: function (req, file, cb) { //req is the json data received from the client side, and file is the file data received from the client side, cb is a callback 
       cb(null, './public/temp')
     },
     filename: function (req, file, cb) {

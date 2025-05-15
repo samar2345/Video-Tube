@@ -7,7 +7,7 @@ class ApiError extends Error{
         stack=""
         
     ){
-        super(message)
+        super(message)//super is used to oerride
         this.statusCode=statusCode,
         this.data =null,
         this.message=message,
